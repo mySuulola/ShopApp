@@ -1,10 +1,10 @@
 import React from 'react';
-import Providers from './src/navigation';
+import Routes from './src/navigation';
 
 const App = () => {
   return (
     <>
-      <Providers />
+      <Routes />
     </>
   );
 };

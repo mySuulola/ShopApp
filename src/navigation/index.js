@@ -1,52 +1,46 @@
 import React from 'react';
-import Routes from './Routes';
-import {
-  configureFonts,
-  DefaultTheme,
-  Provider as PaperProvider,
-} from 'react-native-paper';
-import UserTab from './UserTab';
-import {connect} from 'react-redux';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import CartScreen from '../screens/tabs/CartScreen';
+import HomeScreen from '../screens/tabs/HomeScreen';
+import NotificationScreen from '../screens/tabs/NotificationScreen';
+import ProfileScreen from '../screens/tabs/ProfileScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import ProductDetail from '../screens/ProductDetail';
+import TabBar from "./TabBar";
 
-const fontConfig = {
-  default: {
-    regular: {
-      fontFamily: 'Roboto',
-      fontWeight: '400',
-    },
-    medium: {
-      fontFamily: 'Roboto',
-      fontWeight: '500',
-    },
-    light: {
-      fontFamily: 'Roboto',
-      fontWeight: '300',
-    },
-    thin: {
-      fontFamily: 'Roboto',
-      fontWeight: '100',
-    },
-  },
-};
 
-const theme = {
-  ...DefaultTheme,
-  fonts: configureFonts(fontConfig),
-};
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-const Providers = ({isLoggedIn}) => {
+
+
+
+const TabNavigator = () => {
   return (
-    <PaperProvider theme={theme}>
-      {isLoggedIn ? <UserTab /> : <Routes />}
-    </PaperProvider>
+    <Tab.Navigator
+        tabBar={props => <TabBar {...props} />}
+        initialRouteName="Home">
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Cart" component={CartScreen} />
+        <Tab.Screen name="Notification" component={NotificationScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+  )
+}
+
+const Routes = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Landing" headerMode="none">
+        <Stack.Screen name="Landing" component={TabNavigator} />
+        <Stack.Screen name="Detail" component={ProductDetail} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
-const mapStateToProps = state => ({
-  isLoggedIn: state.user.loggedIn,
-});
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Providers);
+
+export default Routes;
+
