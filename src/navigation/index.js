@@ -13,9 +13,6 @@ import TabBar from "./TabBar";
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-
-
-
 const TabNavigator = () => {
   return (
     <Tab.Navigator
