@@ -24,21 +24,25 @@ const ProductCard = ({ item, navigation }) => {
                     uri: item.image,
                 }}
             />
-            {/* </TouchableOpacity> */}
-            <View style={[styles.row, { width: '100%', paddingHorizontal: 5 }]}>
-                <View style={{ width: '70%' }}>
-                    <Text style={{ fontSize: 12, fontWeight: "bold" }}>{item.title}</Text>
-                    <Divider width={20} height={2} backgroundColor={APP_GREEN} space={4} />
-                    <CustomText fontWeight={"bold"} textColor={APP_BLACK} textSize={12} textContent={item.price} />
+            <View style={[styles.row, { width: '100%', paddingHorizontal: 5, flex: 1, }]}>
+                <View style={{ width: '70%', height: "100%", justifyContent: "space-between" }}>
+                    <View style={{flex: 1, justifyContent: "center"}}>
+                        <Text style={{ fontSize: 12, fontWeight: "bold", }}>{item.title}</Text>
+                        <Divider width={20} height={2} backgroundColor={APP_GREEN} space={4} />
+                    </View>
+                    <CustomText fontWeight={"bold"} textColor={APP_BLACK} textSize={12} textContent={`$${item.price}`} />
                 </View>
+                <View style={{height: '100%', justifyContent: "center", marginBottom: 30}}>
                 <TouchableOpacity
                     onPress={() => navigation.push('Detail', {
                         item: item,
                     })}
-                    style={{ backgroundColor: "#00B761", borderRadius: 2 }}
+                    style={{ backgroundColor: "#00B761" }}
                 >
                     <AntDesignIcons name="plus" size={20} color="#fff" style={{ padding: 5 }} />
                 </TouchableOpacity>
+                </View>
+
 
             </View>
         </View>
